@@ -31,7 +31,7 @@ A modern, TypeScript/JavaScript-focused Neovim configuration built with Lua and 
 - **Formatting**: Conform.nvim with project-aware Prettier integration (format on save)
 
 ### File Navigation & Search
-- **Fuzzy Finder**: fzf-lua with comprehensive file/text search
+- **Fuzzy Finder**: fzf-lua with comprehensive file/text search (requires `fzf`, `ripgrep`, `fd`)
 - **Context Awareness**: nvim-treesitter-context shows function/class context
 - **Git Integration**: All paths shown relative to git root
 

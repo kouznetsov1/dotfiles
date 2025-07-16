@@ -83,10 +83,25 @@ dotfiles/
 - **Tmux**: For terminal multiplexing
 - **Git**: For version control
 
+### Essential Dependencies
+- **fzf**: Fuzzy finder (core dependency for Neovim file navigation)
+- **ripgrep**: Fast grep alternative (required for fzf live grep)
+- **fd**: Fast find alternative (improves file finding performance)
+
+### Installation Commands
+```bash
+# macOS
+brew install fzf ripgrep fd
+
+# Ubuntu/Debian
+sudo apt install fzf ripgrep fd-find
+
+# Arch Linux
+sudo pacman -S fzf ripgrep fd
+```
+
 ### Optional but Recommended
 - **Node.js**: For TypeScript/JavaScript LSP servers
-- **ripgrep**: For faster search in Neovim
-- **fd**: For faster file finding
 
 ## Troubleshooting
 
