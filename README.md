@@ -29,8 +29,12 @@ See [nvim/README.md](nvim/README.md) for detailed configuration info.
 
 ### 🐚 Zsh Configuration
 - Shell customizations and aliases
-- Oh My Zsh integration (if present)
-- Custom prompt and functions
+- Oh My Zsh integration
+- FZF integration with custom key bindings
+- Advanced grep-based file finding functions:
+  - `fzg <term>` / `fzf_grep <term>` - Search file contents, open at line
+  - `fzs` / `fzf_search` - Interactive search through all files
+  - `fze <term>` / `fzf_edit <term>` - Find files by content, edit selected
 
 ### 🔧 Tmux Configuration
 - Custom key bindings and layouts

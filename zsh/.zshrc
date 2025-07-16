@@ -131,3 +131,47 @@ export FZF_CTRL_T_OPTS='--preview "fzf-preview.sh {}" --preview-window=right:50%
 export FZF_ALT_C_OPTS='--preview "tree -C {} | head -100"'
 
 alias vim='nvim'
+
+# FZF + Grep functions for advanced file finding
+# Search file contents, open selected file at specific line
+fzf_grep() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: fzf_grep <search_term>"
+        return 1
+    fi
+    local selected
+    selected=$(rg --line-number --no-heading --color=always "$1" | fzf --ansi --delimiter : --preview 'bat --color=always {1} --highlight-line {2}' --preview-window=right:60%:wrap)
+    if [[ -n $selected ]]; then
+        local file=$(echo $selected | cut -d: -f1)
+        local line=$(echo $selected | cut -d: -f2)
+        nvim +$line "$file"
+    fi
+}
+
+# Interactive search through all files
+fzf_search() {
+    local selected
+    selected=$(rg --line-number --no-heading --color=always . | fzf --ansi --delimiter : --preview 'bat --color=always {1} --highlight-line {2}' --preview-window=right:60%:wrap)
+    if [[ -n $selected ]]; then
+        local file=$(echo $selected | cut -d: -f1)
+        local line=$(echo $selected | cut -d: -f2)
+        nvim +$line "$file"
+    fi
+}
+
+# Find files containing search term, open selected files
+fzf_edit() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: fzf_edit <search_term>"
+        return 1
+    fi
+    local files
+    files=$(rg -l "$1" | fzf --multi --preview 'bat --color=always {}' --preview-window=right:60%:wrap)
+    [[ -n $files ]] && nvim ${=files}
+}
+
+
+# Aliases for convenience (avoiding conflicts with built-in commands)
+alias fzg='fzf_grep'
+alias fzs='fzf_search'
+alias fze='fzf_edit'
