@@ -130,6 +130,7 @@ export FZF_CTRL_T_OPTS='--preview "fzf-preview.sh {}" --preview-window=right:50%
 export FZF_ALT_C_OPTS='--preview "tree -C {} | head -100"'
 
 alias vim='nvim'
+alias v.='nvim .'
 
 # FZF + Grep functions for advanced file finding
 # Search file contents, open selected file at specific line
