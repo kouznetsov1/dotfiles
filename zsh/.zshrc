@@ -108,7 +108,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # pnpm
 export PNPM_HOME="/Users/danielkouznetsov/Library/pnpm"
@@ -175,3 +174,9 @@ fzf_edit() {
 alias fzg='fzf_grep'
 alias fzs='fzf_search'
 alias fze='fzf_edit'
+export PATH="$HOME/.local/kitty.app/bin:$PATH"
+
+# Source local configuration if it exists (not tracked by git)
+if [[ -f ~/.zshrc.local ]]; then
+    source ~/.zshrc.local
+fi
