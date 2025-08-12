@@ -32,9 +32,9 @@ require("lazy").setup({
 			"ibhagwan/fzf-lua",
 			-- optional for icon support
 			dependencies = { "nvim-tree/nvim-web-devicons" },
-			-- or if using mini.icons/mini.nvim
-			-- dependencies = { "echasnovski/mini.icons" },
-			opts = {},
+			config = function()
+				require("dankovich.plugins.fzf")
+			end,
 		},
 
 		-- Colorscheme
@@ -79,7 +79,7 @@ require("lazy").setup({
 		},
 		{
 			"williamboman/mason-lspconfig.nvim",
-			dependencies = { "williamboman/mason.nvim" },
+			dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
 			config = function()
 				require("mason-lspconfig").setup({
 					ensure_installed = {

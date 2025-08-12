@@ -108,7 +108,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # pnpm
 export PNPM_HOME="/Users/danielkouznetsov/Library/pnpm"
@@ -131,6 +130,7 @@ export FZF_CTRL_T_OPTS='--preview "fzf-preview.sh {}" --preview-window=right:50%
 export FZF_ALT_C_OPTS='--preview "tree -C {} | head -100"'
 
 alias vim='nvim'
+alias v.='nvim .'
 
 # FZF + Grep functions for advanced file finding
 # Search file contents, open selected file at specific line
@@ -182,3 +182,10 @@ export PATH="$HOME/bin:$PATH"
 
 # Ramble alias for capturing thoughts and ideas
 alias ramble='~/bin/ramble'
+
+export PATH="$HOME/.local/kitty.app/bin:$PATH"
+
+# Source local configuration if it exists (not tracked by git)
+if [[ -f ~/.zshrc.local ]]; then
+    source ~/.zshrc.local
+fi
