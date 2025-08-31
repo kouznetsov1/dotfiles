@@ -13,6 +13,7 @@ require("conform").setup({
     yaml = { "prettier" },
     yml = { "prettier" },
     lua = { "stylua" },
+    python = { "ruff_format" },
   },
   format_on_save = {
     timeout_ms = 500,

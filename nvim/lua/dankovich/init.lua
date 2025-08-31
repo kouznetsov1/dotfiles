@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd("User", {
         require("dankovich.plugins.jsonls")
         require("dankovich.plugins.yamlls")
         require("dankovich.plugins.prismals")
+        require("dankovich.plugins.python")
         require("dankovich.plugins.diagnostics")
         require("dankovich.plugins.clipboard-context").setup()
     end,

@@ -6,6 +6,7 @@ lint.linters_by_ft = {
   typescript = { "eslint" },
   javascriptreact = { "eslint" },
   typescriptreact = { "eslint" },
+  python = { "ruff" },
 }
 
 -- Helper function to find eslint

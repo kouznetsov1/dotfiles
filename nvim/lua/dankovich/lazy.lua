@@ -74,7 +74,11 @@ require("lazy").setup({
 			"williamboman/mason.nvim",
 			build = ":MasonUpdate",
 			config = function()
-				require("mason").setup()
+				require("mason").setup({
+					ensure_installed = {
+						"ruff",
+					},
+				})
 			end,
 		},
 		{
@@ -88,6 +92,7 @@ require("lazy").setup({
 						"yamlls",
 						"tailwindcss",
 						"prismals",
+						"basedpyright",
 					},
 					automatic_installation = true,
 				})
