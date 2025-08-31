@@ -175,6 +175,14 @@ fzf_edit() {
 alias fzg='fzf_grep'
 alias fzs='fzf_search'
 alias fze='fzf_edit'
+export PATH="/Users/danielkouznetsov/.pixi/bin:$PATH"
+
+# Add ~/bin to PATH for custom scripts
+export PATH="$HOME/bin:$PATH"
+
+# Ramble alias for capturing thoughts and ideas
+alias ramble='~/bin/ramble'
+
 export PATH="$HOME/.local/kitty.app/bin:$PATH"
 
 # Source local configuration if it exists (not tracked by git)
