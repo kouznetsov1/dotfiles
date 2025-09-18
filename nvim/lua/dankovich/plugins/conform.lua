@@ -16,7 +16,7 @@ require("conform").setup({
     python = { "ruff_format" },
   },
   format_on_save = {
-    timeout_ms = 500,
+    timeout_ms = 5000, -- Increased timeout for large projects
     lsp_fallback = true,
   },
   formatters = {
@@ -28,6 +28,12 @@ require("conform").setup({
       args = { "--stdin-filepath", "$FILENAME" },
       -- Ensure prettier can find its config by not overriding its natural resolution
       inherit = true,
+      -- Increase timeout for prettier specifically
+      timeout_ms = 10000,
+      -- Use cache to speed up formatting
+      env = {
+        PRETTIER_CACHE = "true",
+      },
     },
   },
 })

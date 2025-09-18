@@ -1,10 +1,12 @@
 -- Lua LSP configuration
-local lspconfig = require("lspconfig")
 
 -- Enable completion capabilities
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-lspconfig.lua_ls.setup({
+vim.lsp.config.lua_ls = {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  single_file_support = true,
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -27,4 +29,6 @@ lspconfig.lua_ls.setup({
       },
     },
   },
-})
+}
+
+vim.lsp.enable("lua_ls")

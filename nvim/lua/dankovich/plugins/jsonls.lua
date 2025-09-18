@@ -1,7 +1,9 @@
-local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-lspconfig.jsonls.setup({
+vim.lsp.config.jsonls = {
+  cmd = { "vscode-json-language-server", "--stdio" },
+  filetypes = { "json", "jsonc" },
+  single_file_support = true,
   capabilities = capabilities,
   settings = {
     json = {
@@ -9,4 +11,6 @@ lspconfig.jsonls.setup({
       validate = { enable = true },
     },
   },
-})
+}
+
+vim.lsp.enable("jsonls")

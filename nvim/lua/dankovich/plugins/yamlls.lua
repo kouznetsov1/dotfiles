@@ -1,7 +1,9 @@
-local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-lspconfig.yamlls.setup({
+vim.lsp.config.yamlls = {
+  cmd = { "yaml-language-server", "--stdio" },
+  filetypes = { "yaml", "yml" },
+  single_file_support = true,
   capabilities = capabilities,
   settings = {
     yaml = {
@@ -11,5 +13,6 @@ lspconfig.yamlls.setup({
       schemas = require("schemastore").yaml.schemas(),
     },
   },
-  filetypes = { "yaml", "yml" },
-})
+}
+
+vim.lsp.enable("yamlls")
