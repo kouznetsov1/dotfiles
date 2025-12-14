@@ -22,3 +22,4 @@ macos-option-as-alt = true
 # Window
 window-padding-x = 4
 window-padding-y = 4
+gtk-titlebar = false
