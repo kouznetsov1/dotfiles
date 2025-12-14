@@ -1,70 +1,68 @@
 #!/bin/bash
+set -e
 
-# Dotfiles Installation Script
-# This script sets up symlinks for all dotfiles configurations
-
-set -e  # Exit on any error
-
-echo "🚀 Setting up dotfiles..."
-
-# Get the directory where this script is located
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Function to create symlink with backup
 create_symlink() {
-    local source="$1"
-    local target="$2"
-    
-    # Create target directory if it doesn't exist
-    mkdir -p "$(dirname "$target")"
-    
-    # Backup existing file/directory if it exists
-    if [ -e "$target" ] || [ -L "$target" ]; then
-        echo "⚠️  Backing up existing $target to $target.backup"
-        mv "$target" "$target.backup"
-    fi
-    
-    # Create symlink
-    ln -sf "$source" "$target"
-    echo "✅ Linked $source -> $target"
+    mkdir -p "$(dirname "$2")"
+    [ -e "$2" ] || [ -L "$2" ] && mv "$2" "$2.backup"
+    ln -sf "$1" "$2"
+    echo "Linked $2"
 }
 
-# Neovim configuration
-echo "📝 Setting up Neovim configuration..."
+# Symlinks
 create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
+create_symlink "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 
-# Zsh configuration
-if [ -f "$DOTFILES_DIR/zsh/.zshrc" ]; then
-    echo "🐚 Setting up Zsh configuration..."
-    create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
+# zsh-autosuggestions
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+if [ -d "$HOME/.oh-my-zsh" ] && [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    echo "Installing zsh-autosuggestions..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
-# Tmux configuration
-if [ -f "$DOTFILES_DIR/tmux/.tmux.conf" ]; then
-    echo "🔧 Setting up Tmux configuration..."
-    create_symlink "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+# TPM (tmux plugin manager)
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "Installing TPM..."
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
-# Install Neovim plugins
-echo "🔌 Installing Neovim plugins..."
+# Neovim plugins
 if command -v nvim &> /dev/null; then
+    echo "Installing nvim plugins..."
     nvim --headless -c "Lazy sync" -c "qa"
-    echo "✅ Neovim plugins installed"
-else
-    echo "⚠️  Neovim not found. Please install Neovim first."
-    echo "   macOS: brew install neovim"
-    echo "   Linux: package manager or https://github.com/neovim/neovim/releases"
 fi
 
-echo ""
-echo "🎉 Dotfiles installation complete!"
-echo ""
-echo "Next steps:"
-echo "1. Restart your terminal or run: source ~/.zshrc (or ~/.bashrc)"
-echo "2. Open Neovim to test the configuration"
-echo "3. Run :checkhealth in Neovim to verify everything is working"
-echo ""
-echo "To add more dotfiles:"
-echo "1. Add config files to $DOTFILES_DIR/"
-echo "2. Update this install script with new symlinks"
-echo "3. Run ./install.sh again"
+# Dependencies
+DEPS=(fzf bat ripgrep tree)
+MISSING=()
+for dep in "${DEPS[@]}"; do
+    cmd=$dep
+    [ "$dep" = "ripgrep" ] && cmd="rg"
+    [ "$dep" = "bat" ] && command -v batcat &> /dev/null && continue
+    command -v "$cmd" &> /dev/null || MISSING+=("$dep")
+done
+
+if [ ${#MISSING[@]} -gt 0 ]; then
+    echo ""
+    echo "Missing dependencies: ${MISSING[*]}"
+    read -p "Install them? [y/N] " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install "${MISSING[@]}"
+        else
+            sudo apt install -y "${MISSING[@]}"
+        fi
+    fi
+fi
+
+# Ubuntu: batcat -> bat alias
+if command -v batcat &> /dev/null && ! command -v bat &> /dev/null; then
+    mkdir -p "$HOME/.local/bin"
+    ln -sf "$(which batcat)" "$HOME/.local/bin/bat"
+    echo "Linked batcat -> bat"
+fi
+
+echo "Done!"
