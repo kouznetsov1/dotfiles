@@ -106,11 +106,26 @@ require("lazy").setup({
 			version = false,
 		},
 
+		-- Using vtsls instead of typescript-tools for TypeScript plugin support
 		{
-			"pmizio/typescript-tools.nvim",
-			dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+			"yioneko/nvim-vtsls",
+			dependencies = { "neovim/nvim-lspconfig" },
 			config = function()
 				require("dankovich.plugins.typescript")
+			end,
+		},
+
+		-- Better TypeScript error messages
+		{
+			"OlegGulevskyy/better-ts-errors.nvim",
+			dependencies = { "MunifTanjim/nui.nvim" },
+			config = function()
+				require("better-ts-errors").setup({
+					keymaps = {
+						toggle = '<leader>dt',          -- Toggle better TS error display
+						go_to_definition = '<leader>dg' -- Go to problematic type
+					}
+				})
 			end,
 		},
 

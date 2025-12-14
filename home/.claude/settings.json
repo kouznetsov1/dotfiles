@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(fd:*)",
+      "Bash(fzf:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(rg:*)",
+      "Bash(tree:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:grep.app)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path'); case \"$f\" in *.ts|*.tsx) bunx biome check --write \"$f\" 2>/dev/null;; *.py) ruff check --fix \"$f\" 2>/dev/null; ruff format \"$f\" 2>/dev/null;; esac; true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "notify-send 'Claude' 'Done' 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "printf '\\033[01;32m%s@%s\\033[00m:\\033[01;34m%s\\033[00m' \"$(whoami)\" \"$(hostname -s)\" \"$(pwd)\""
+  },
+  "alwaysThinkingEnabled": true
+}

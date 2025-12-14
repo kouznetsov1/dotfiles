@@ -1,0 +1,24 @@
+# Theme
+theme = Catppuccin Macchiato
+
+# Shell
+shell-integration = zsh
+quit-after-last-window-closed = true
+
+# Font
+font-family = MonoLisa
+font-size = 14
+
+# Cursor
+cursor-style-blink = true
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+
+# macOS
+macos-option-as-alt = true
+
+# Window
+window-padding-x = 4
+window-padding-y = 4

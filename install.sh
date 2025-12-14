@@ -3,17 +3,20 @@ set -e
 
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-create_symlink() {
-    mkdir -p "$(dirname "$2")"
-    [ -e "$2" ] || [ -L "$2" ] && mv "$2" "$2.backup"
-    ln -sf "$1" "$2"
-    echo "Linked $2"
-}
+# Check for stow
+if ! command -v stow &> /dev/null; then
+    echo "stow not found. Installing..."
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install stow
+    else
+        sudo apt install -y stow
+    fi
+fi
 
-# Symlinks
-create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
-create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
-create_symlink "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+# Stow home directory
+cd "$DOTFILES_DIR"
+echo "Stowing dotfiles..."
+stow -v --target="$HOME" home
 
 # zsh-autosuggestions
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
@@ -46,8 +49,8 @@ done
 
 if [ ${#MISSING[@]} -gt 0 ]; then
     echo ""
-    echo "Missing dependencies: ${MISSING[*]}"
-    read -p "Install them? [y/N] " -n 1 -r
+    echo "Missing: ${MISSING[*]}"
+    read -p "Install? [y/N] " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         if [[ "$OSTYPE" == "darwin"* ]]; then

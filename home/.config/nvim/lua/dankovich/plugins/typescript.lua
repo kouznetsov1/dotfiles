@@ -1,20 +1,53 @@
 -- Enable completion capabilities
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lspconfig = require("lspconfig")
 
-require("typescript-tools").setup({
+-- Using vtsls for TypeScript plugin support (Effect LSP)
+-- vtsls automatically detects and uses TypeScript plugins from tsconfig.json
+require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+
+lspconfig.vtsls.setup({
   capabilities = capabilities,
+  root_dir = function(fname)
+    return require("lspconfig.util").root_pattern("package.json", "tsconfig.json")(fname)
+  end,
   settings = {
-    -- Use project's tsconfig.json
-    tsserver_file_preferences = {
-      includeInlayParameterNameHints = "all",
+    vtsls = {
+      -- Enable TypeScript plugins from tsconfig.json
+      enableMoveToFileCodeAction = true,
+      autoUseWorkspaceTsdk = true,
+      experimental = {
+        maxInlayHintLength = 30,
+        completion = {
+          enableServerSideFuzzyMatch = true
+        }
+      }
     },
-    -- This ensures it uses the project's formatter settings
-    tsserver_format_options = function(ft)
-      -- This function is called for each buffer
-      -- It will look for prettier config in the project
-      return {} -- Empty means use project defaults
-    end,
-  },
+    typescript = {
+      tsserver = {
+        maxTsServerMemory = 4096,
+        pluginPaths = { "./node_modules" },
+        watchOptions = {
+          excludeDirectories = { "**/vendor/**", "**/node_modules/**", "**/.turbo/**" }
+        }
+      },
+      preferences = {
+        importModuleSpecifier = "relative"
+      },
+      inlayHints = {
+        parameterNames = { enabled = "all" },
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        enumMemberValues = { enabled = true }
+      },
+      updateImportsOnFileMove = { enabled = "always" },
+      suggest = {
+        completeFunctionCalls = true
+      }
+    }
+  }
 })
 
 -- LSP keybindings (only active when LSP is attached)
@@ -35,7 +68,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>f", function()
       require("conform").format({ async = true })
     end, opts)
-    
     -- Copy diagnostic to clipboard
     vim.keymap.set("n", "dc", function()
       local line_diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
@@ -53,4 +85,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, opts)
   end,
 })
-
