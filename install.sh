@@ -31,10 +31,44 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
+# JetBrains Mono Nerd Font
+if ! fc-list | grep -qi "JetBrainsMono Nerd Font"; then
+    echo "Installing JetBrains Mono Nerd Font..."
+    mkdir -p ~/.local/share/fonts
+    cd ~/.local/share/fonts
+    curl -fLO "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+    unzip -o JetBrainsMono.zip -d JetBrainsMono
+    rm JetBrainsMono.zip
+    fc-cache -f
+    cd "$DOTFILES_DIR"
+fi
+
 # Neovim plugins
 if command -v nvim &> /dev/null; then
     echo "Installing nvim plugins..."
     nvim --headless -c "Lazy sync" -c "qa"
+fi
+
+# zoxide
+if ! command -v zoxide &> /dev/null; then
+    echo "Installing zoxide..."
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+fi
+
+# sesh (tmux session manager)
+if ! command -v sesh &> /dev/null; then
+    echo "Installing sesh..."
+    curl -sSfL https://github.com/joshmedeski/sesh/releases/latest/download/sesh_Linux_x86_64.tar.gz | tar xz -C /tmp
+    mv /tmp/sesh ~/.local/bin/
+fi
+
+# lazygit
+if ! command -v lazygit &> /dev/null; then
+    echo "Installing lazygit..."
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
+    curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf /tmp/lazygit.tar.gz -C /tmp lazygit
+    mv /tmp/lazygit ~/.local/bin/
 fi
 
 # Dependencies

@@ -17,4 +17,4 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 -- Set colorscheme
-vim.cmd.colorscheme("gruvbox")
+vim.cmd.colorscheme("catppuccin-macchiato")

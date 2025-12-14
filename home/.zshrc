@@ -18,6 +18,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 
 # fzf
 source <(fzf --zsh)
+
+# zoxide (smarter cd)
+eval "$(zoxide init zsh)"
 export FZF_CTRL_T_OPTS='--preview "bat --color=always {}" --preview-window=right:50%:wrap'
 export FZF_ALT_C_OPTS='--preview "tree -C {} | head -100"'
 
@@ -31,6 +34,7 @@ fzg() {
 # Aliases
 alias vim='nvim'
 alias v.='nvim .'
+alias lg='lazygit'
 
 # Local overrides (not tracked)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

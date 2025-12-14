@@ -39,11 +39,15 @@ require("oil").setup({
     ["g?"] = "actions.show_help",
     ["<CR>"] = "actions.select",
     ["<C-s>"] = "actions.select_vsplit",
-    ["<C-h>"] = "actions.select_split",
+    ["<C-x>"] = "actions.select_split",
+    ["<C-h>"] = false,  -- disable, used by tmux-navigator
     ["<C-t>"] = "actions.select_tab",
     ["<C-p>"] = "actions.preview",
     ["<C-c>"] = "actions.close",
-    ["<C-l>"] = "actions.refresh",
+    ["<C-j>"] = false,  -- disable, used by tmux-navigator
+    ["<C-k>"] = false,  -- disable, used by tmux-navigator
+    ["<C-l>"] = false,  -- disable, used by tmux-navigator
+    ["gr"] = "actions.refresh",
     ["-"] = "actions.parent",
     ["_"] = "actions.open_cwd",
     ["`"] = "actions.cd",

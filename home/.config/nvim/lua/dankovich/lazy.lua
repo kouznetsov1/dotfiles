@@ -38,7 +38,12 @@ require("lazy").setup({
 		},
 
 		-- Colorscheme
-		{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
+		{
+			"catppuccin/nvim",
+			name = "catppuccin",
+			priority = 1000,
+			opts = { flavour = "macchiato" },
+		},
 
 		{
 			"nvim-treesitter/nvim-treesitter",
@@ -115,57 +120,12 @@ require("lazy").setup({
 			end,
 		},
 
-		-- Better TypeScript error messages
-		{
-			"OlegGulevskyy/better-ts-errors.nvim",
-			dependencies = { "MunifTanjim/nui.nvim" },
-			config = function()
-				require("better-ts-errors").setup({
-					keymaps = {
-						toggle = '<leader>dt',          -- Toggle better TS error display
-						go_to_definition = '<leader>dg' -- Go to problematic type
-					}
-				})
-			end,
-		},
-
-		-- Tailwind CSS tools
-		{
-			"luckasRanarison/tailwind-tools.nvim",
-			name = "tailwind-tools",
-			build = ":UpdateRemotePlugins",
-			dependencies = {
-				"nvim-treesitter/nvim-treesitter",
-				"neovim/nvim-lspconfig",
-			},
-			config = function()
-				require("dankovich.plugins.tailwind")
-			end,
-		},
-
 		-- Git signs in gutter
 		{
 			"lewis6991/gitsigns.nvim",
 			event = "BufReadPre",
 			config = function()
 				require("dankovich.plugins.gitsigns")
-			end,
-		},
-
-		-- Diff viewer
-		{
-			"sindrets/diffview.nvim",
-			dependencies = { "nvim-lua/plenary.nvim" },
-			cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
-			config = function()
-				require("diffview").setup({
-					enhanced_diff_hl = true,
-					use_icons = true,
-					signs = {
-						fold_closed = "",
-						fold_open = "",
-					},
-				})
 			end,
 		},
 
@@ -207,15 +167,6 @@ require("lazy").setup({
 			end,
 		},
 
-		-- Linter
-		{
-			"mfussenegger/nvim-lint",
-			event = { "BufReadPre", "BufNewFile" },
-			config = function()
-				require("dankovich.plugins.lint")
-			end,
-		},
-
 		-- Auto-close brackets
 		{
 			"windwp/nvim-autopairs",
@@ -249,6 +200,38 @@ require("lazy").setup({
 				require("dankovich.plugins.cmp")
 			end,
 		},
+
+		-- Surround text objects
+		{ "tpope/vim-surround", event = "VeryLazy" },
+
+		-- Show keybindings popup
+		{
+			"folke/which-key.nvim",
+			event = "VeryLazy",
+			config = function()
+				require("which-key").setup({ delay = 400 })
+			end,
+		},
+
+		-- Undo tree visualization + persistent undo
+		{
+			"mbbill/undotree",
+			event = "VeryLazy",
+			config = function()
+				vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle undotree" })
+				if vim.fn.has("persistent_undo") == 1 then
+					local undo_dir = vim.fn.expand("~/.config/nvim/.undodir")
+					if vim.fn.isdirectory(undo_dir) == 0 then
+						vim.fn.mkdir(undo_dir, "p")
+					end
+					vim.opt.undodir = undo_dir
+					vim.opt.undofile = true
+				end
+			end,
+		},
+
+		-- Seamless tmux/nvim navigation
+		{ "christoomey/vim-tmux-navigator", event = "VeryLazy" },
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.

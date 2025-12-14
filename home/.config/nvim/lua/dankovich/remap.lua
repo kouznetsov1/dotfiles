@@ -16,3 +16,8 @@ vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { desc = "Find buff
 vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua help_tags<CR>", { desc = "Help tags" })
 vim.keymap.set("n", "<leader>fo", "<cmd>FzfLua oldfiles<CR>", { desc = "Recent files" })
 vim.keymap.set("n", "<leader>fc", "<cmd>FzfLua grep_cword<CR>", { desc = "Grep word under cursor" })
+
+-- Lazygit
+vim.keymap.set("n", "<leader>gg", function()
+	vim.cmd("silent !tmux new-window lazygit")
+end, { desc = "Open lazygit" })
