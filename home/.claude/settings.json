@@ -39,8 +39,8 @@
     "type": "command",
     "command": "python3 ~/.claude/scripts/statusline.py"
   },
-  "alwaysThinkingEnabled": true,
   "enabledPlugins": {
     "document-skills@anthropic-agent-skills": true
-  }
+  },
+  "alwaysThinkingEnabled": true
 }
