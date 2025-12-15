@@ -1,0 +1,14 @@
+[include]
+	path = ~/.gitconfig.local
+
+[core]
+	editor = nvim
+
+[merge]
+	tool = nvimdiff
+
+[diff]
+	tool = nvimdiff
+
+[pull]
+	rebase = false

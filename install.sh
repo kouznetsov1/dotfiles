@@ -13,6 +13,22 @@ if ! command -v stow &> /dev/null; then
     fi
 fi
 
+# Handle existing .gitconfig before stow
+if [ -f "$HOME/.gitconfig" ] && [ ! -L "$HOME/.gitconfig" ]; then
+    echo "Moving existing .gitconfig to .gitconfig.local..."
+    mv "$HOME/.gitconfig" "$HOME/.gitconfig.local"
+fi
+
+# Create .gitconfig.local template if missing
+if [ ! -f "$HOME/.gitconfig.local" ]; then
+    echo "Creating .gitconfig.local template..."
+    cat > "$HOME/.gitconfig.local" << 'EOF'
+[user]
+	email =
+	name =
+EOF
+fi
+
 # Stow home directory
 cd "$DOTFILES_DIR"
 echo "Stowing dotfiles..."

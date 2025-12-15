@@ -42,5 +42,8 @@
   "enabledPlugins": {
     "document-skills@anthropic-agent-skills": true
   },
+  "attribution": {
+    "commit": ""
+  },
   "alwaysThinkingEnabled": true
 }
