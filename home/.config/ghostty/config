@@ -17,7 +17,7 @@ clipboard-read = allow
 clipboard-write = allow
 
 # macOS
-macos-option-as-alt = true
+macos-titlebar-style = hidden
 
 # Window
 window-padding-x = 4

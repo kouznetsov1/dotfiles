@@ -55,18 +55,29 @@ if ! command -v zoxide &> /dev/null; then
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
 
+# Detect OS/arch for binary downloads
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    OS="Darwin"
+else
+    OS="Linux"
+fi
+ARCH=$(uname -m)
+[[ "$ARCH" == "aarch64" || "$ARCH" == "arm64" ]] && ARCH="arm64" || ARCH="x86_64"
+
 # sesh (tmux session manager)
 if ! command -v sesh &> /dev/null; then
     echo "Installing sesh..."
-    curl -sSfL https://github.com/joshmedeski/sesh/releases/latest/download/sesh_Linux_x86_64.tar.gz | tar xz -C /tmp
+    mkdir -p ~/.local/bin
+    curl -sSfL "https://github.com/joshmedeski/sesh/releases/latest/download/sesh_${OS}_${ARCH}.tar.gz" | tar xz -C /tmp
     mv /tmp/sesh ~/.local/bin/
 fi
 
 # lazygit
 if ! command -v lazygit &> /dev/null; then
     echo "Installing lazygit..."
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
-    curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    mkdir -p ~/.local/bin
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -oE '"tag_name": *"v[^"]*"' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+    curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_${OS}_${ARCH}.tar.gz"
     tar xf /tmp/lazygit.tar.gz -C /tmp lazygit
     mv /tmp/lazygit ~/.local/bin/
 fi

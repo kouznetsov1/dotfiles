@@ -5,7 +5,7 @@ diff=$(git diff --cached)
 [ -z "$diff" ] && diff=$(git diff)
 [ -z "$diff" ] && echo "no changes" && exit 1
 
-msg=$(echo "$diff" | claude -p "write a one-line commit msg for this diff. conventional commit format. just the message, nothing else.")
+msg=$(echo "$diff" | claude -p --model haiku "write a one-line commit msg for this diff. conventional commit format. just the message, nothing else.")
 
 echo "$msg"
 if [[ "$1" == "-y" ]]; then
