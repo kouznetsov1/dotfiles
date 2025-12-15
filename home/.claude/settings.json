@@ -15,11 +15,11 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Edit|Write",
+        "matcher": "Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "f=$(jq -r '.tool_input.file_path'); case \"$f\" in *.ts|*.tsx) bunx biome check --write \"$f\" 2>/dev/null;; *.py) ruff check --fix \"$f\" 2>/dev/null; ruff format \"$f\" 2>/dev/null;; esac; true"
+            "command": "f=$(jq -r '.tool_input.file_path'); case \"$f\" in *.ts|*.tsx) bunx biome check \"$f\" 2>/dev/null;; *.py) ruff check \"$f\" 2>/dev/null;; esac; true"
           }
         ]
       }
@@ -29,7 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "notify-send 'Claude' 'Done' 2>/dev/null || true"
+            "command": "for f in $(git diff --name-only 2>/dev/null); do case \"$f\" in *.ts|*.tsx) bunx biome check --write \"$f\" 2>/dev/null;; *.py) ruff check --fix \"$f\" 2>/dev/null; ruff format \"$f\" 2>/dev/null;; esac; done; notify-send 'Claude' 'Done' 2>/dev/null || true"
           }
         ]
       }

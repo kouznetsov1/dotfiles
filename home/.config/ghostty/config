@@ -2,6 +2,7 @@
 theme = Catppuccin Macchiato
 
 # Shell
+command = /bin/zsh
 shell-integration = zsh
 quit-after-last-window-closed = true
 

@@ -39,3 +39,6 @@ alias lg='lazygit'
 # Local overrides (not tracked)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 [[ -f ~/.secrets ]] && source ~/.secrets
+
+# bun completions
+[ -s "/Users/danielkouznetsov/.bun/_bun" ] && source "/Users/danielkouznetsov/.bun/_bun"
