@@ -39,9 +39,6 @@
     "type": "command",
     "command": "python3 ~/.claude/scripts/statusline.py"
   },
-  "enabledPlugins": {
-    "document-skills@anthropic-agent-skills": true
-  },
   "attribution": {
     "commit": ""
   },
