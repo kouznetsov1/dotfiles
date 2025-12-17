@@ -3,4 +3,3 @@
 ## Tools
 - Use fd instead of find
 - Use rg (ripgrep) instead of grep
-- For structural code search use ast-grep (@ast-grep.md)

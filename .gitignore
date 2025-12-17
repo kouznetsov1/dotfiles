@@ -1,2 +1,10 @@
 lazygit
 lazygit.tar.gz
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Nvim
+lazy-lock.json
