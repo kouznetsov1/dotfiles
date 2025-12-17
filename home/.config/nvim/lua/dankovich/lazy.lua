@@ -131,10 +131,11 @@ require("lazy").setup({
 
 		-- Status line
 		{
-			"nvim-lualine/lualine.nvim",
-			dependencies = { "nvim-tree/nvim-web-devicons" },
+			"rebelot/heirline.nvim",
+			dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
+			event = "BufReadPre",
 			config = function()
-				require("dankovich.plugins.lualine")
+				require("dankovich.plugins.heirline")
 			end,
 		},
 
