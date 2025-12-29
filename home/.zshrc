@@ -1,6 +1,9 @@
 # Path
 export PATH="$HOME/.local/bin:$HOME/.claude:$HOME/.bun/bin:$HOME/bin:$PATH"
 
+# Editor
+export EDITOR=nvim
+
 # Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
@@ -35,6 +38,7 @@ fzg() {
 alias vim='nvim'
 alias v.='nvim .'
 alias lg='lazygit'
+alias yolo='ga . && lgtm -y && gp'
 
 # Local overrides (not tracked)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

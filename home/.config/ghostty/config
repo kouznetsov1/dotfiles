@@ -26,4 +26,4 @@ window-padding-y = 0
 gtk-titlebar = false
 
 # Transparency
-background-opacity = 0.95
+background-opacity = 0.99
