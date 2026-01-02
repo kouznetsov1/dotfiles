@@ -2,6 +2,9 @@
   "env": {
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "64000"
   },
+  "attribution": {
+    "commit": ""
+  },
   "permissions": {
     "allow": [
       "Bash(cat:*)",
@@ -16,17 +19,6 @@
     ]
   },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/scripts/block-bad-patterns.sh"
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "matcher": "",
@@ -54,7 +46,7 @@
     "type": "command",
     "command": "python3 ~/.claude/scripts/statusline.py"
   },
-  "attribution": {
-    "commit": ""
+  "enabledPlugins": {
+    "ralph-wiggum@claude-code-plugins": true
   }
 }
