@@ -98,6 +98,7 @@ require("lazy").setup({
 						"tailwindcss",
 						"prismals",
 						"basedpyright",
+						"rust_analyzer",
 					},
 					automatic_installation = true,
 				})
@@ -117,6 +118,15 @@ require("lazy").setup({
 			dependencies = { "neovim/nvim-lspconfig" },
 			config = function()
 				require("dankovich.plugins.typescript")
+			end,
+		},
+
+		-- Rust (config loaded on rust filetype)
+		{
+			"rust-lang/rust.vim",
+			ft = "rust",
+			config = function()
+				require("dankovich.plugins.rust")
 			end,
 		},
 

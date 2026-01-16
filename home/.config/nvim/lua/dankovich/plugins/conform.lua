@@ -33,6 +33,7 @@ require("conform").setup({
     yml = { "prettier" },
     lua = { "stylua" },
     python = { "ruff_format" },
+    rust = { "rustfmt" },
   },
   format_on_save = {
     timeout_ms = 5000,

@@ -45,8 +45,5 @@
   "statusLine": {
     "type": "command",
     "command": "python3 ~/.claude/scripts/statusline.py"
-  },
-  "enabledPlugins": {
-    "ralph-wiggum@claude-code-plugins": true
   }
 }
