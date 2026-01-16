@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("User", {
         require("dankovich.plugins.python")
         require("dankovich.plugins.diagnostics")
         require("dankovich.plugins.clipboard-context").setup()
+        require("dankovich.plugins.review")
     end,
 })
 
