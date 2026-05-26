@@ -4,7 +4,8 @@ vim.lsp.config.rust_analyzer = {
 	root_markers = { "Cargo.toml", "rust-project.json" },
 	settings = {
 		["rust-analyzer"] = {
-			checkOnSave = {
+			checkOnSave = true,
+			check = {
 				command = "clippy",
 			},
 			inlayHints = {

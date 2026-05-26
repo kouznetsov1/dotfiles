@@ -3,3 +3,4 @@
 ## Tools
 - Use fd instead of find
 - Use rg (ripgrep) instead of grep
+- ALWAYS use AskUserQuestion tool when asking questions
