@@ -1,6 +1,11 @@
 # Path
 export PATH="$HOME/.local/bin:$HOME/.claude:$HOME/.bun/bin:$HOME/bin:$PATH"
 
+# Homebrew
+for brew_path in /home/linuxbrew/.linuxbrew/bin/brew /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    [[ -x "$brew_path" ]] && eval "$("$brew_path" shellenv)" && break
+done
+
 # Editor
 export EDITOR=nvim
 
