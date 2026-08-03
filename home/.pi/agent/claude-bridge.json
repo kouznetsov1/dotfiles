@@ -1,0 +1,12 @@
+{
+  "provider": {
+    "plan": "max",
+    "longContextExtraUsage": false
+  },
+  "askClaude": {
+    "enabled": true,
+    "defaultMode": "read",
+    "defaultIsolated": true,
+    "allowFullMode": true
+  }
+}
