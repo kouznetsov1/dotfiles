@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal config for zsh, nvim, tmux, ghostty, and claude code.
+Personal config for zsh, nvim, tmux, ghostty, Claude Code, and Pi.
 
 ## Structure
 
@@ -12,6 +12,7 @@ dotfiles/
 │   │   ├── tmux/         # Tmux config
 │   │   └── ghostty/      # Ghostty terminal
 │   ├── .claude/          # Claude Code settings
+│   ├── .pi/              # Portable Pi settings, instructions, keybindings, extensions
 │   └── .zshrc            # Zsh config
 ├── install.sh            # Setup script
 └── CLAUDE.md
@@ -40,7 +41,7 @@ Before running install.sh:
 
 After editing configs in `home/`, run:
 ```bash
-stow -v --target="$HOME" home
+stow --no-folding -v --target="$HOME" home
 ```
 
 Or re-run `./install.sh`.
@@ -49,3 +50,4 @@ Or re-run `./install.sh`.
 
 - Tmux uses `~/.config/tmux/tmux.conf` (not `~/.tmux.conf`)
 - Claude settings exclude machine-specific data (history, credentials, etc.)
+- Pi auth, trust decisions, sessions, caches, run history, and installed package contents stay machine-local under `~/.pi/agent/`

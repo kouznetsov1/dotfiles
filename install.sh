@@ -29,10 +29,25 @@ if [ ! -f "$HOME/.gitconfig.local" ]; then
 EOF
 fi
 
+# Preserve existing portable Pi config before replacing it with stowed config
+for file in settings.json keybindings.json AGENTS.md; do
+    target="$HOME/.pi/agent/$file"
+    backup="$target.local"
+    if [ -f "$target" ] && [ ! -L "$target" ]; then
+        if [ -e "$backup" ]; then
+            echo "Cannot preserve $target: $backup already exists" >&2
+            exit 1
+        fi
+        mkdir -p "$HOME/.pi/agent"
+        echo "Moving existing $target to $backup..."
+        mv "$target" "$backup"
+    fi
+done
+
 # Stow home directory
 cd "$DOTFILES_DIR"
 echo "Stowing dotfiles..."
-stow -v --target="$HOME" home
+stow --no-folding -v --target="$HOME" home
 
 # zsh-autosuggestions
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"

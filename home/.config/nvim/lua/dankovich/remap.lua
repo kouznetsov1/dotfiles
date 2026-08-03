@@ -16,6 +16,12 @@ vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { desc = "Find buff
 vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua help_tags<CR>", { desc = "Help tags" })
 vim.keymap.set("n", "<leader>fo", "<cmd>FzfLua oldfiles<CR>", { desc = "Recent files" })
 vim.keymap.set("n", "<leader>fc", "<cmd>FzfLua grep_cword<CR>", { desc = "Grep word under cursor" })
+vim.keymap.set("n", "<leader>fd", function()
+	require("fzf-lua").fzf_exec("git diff --name-only main...HEAD", {
+		actions = require("fzf-lua").defaults.actions.files,
+		previewer = "builtin",
+	})
+end, { desc = "Files changed vs main" })
 
 -- Lazygit
 vim.keymap.set("n", "<leader>gg", function()

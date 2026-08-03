@@ -22,6 +22,7 @@ This is a modern, production-ready Neovim configuration using Lua with lazy.nvim
 - View plugin status: `:Lazy`
 - LSP server management: `:Mason`
 - Git diff view: `:DiffviewOpen`
+- Symbols outline: `:AerialToggle`
 
 ## Architecture and Key Design Decisions
 
@@ -56,6 +57,7 @@ Essential dependencies that must be maintained:
 - **Format/Lint chain**: conform.nvim + nvim-lint with project-local executable resolution
 - **File navigation**: oil.nvim completely replaces netrw
 - **Git integration**: gitsigns + diffview for comprehensive git workflows
+- **Symbols outline**: aerial.nvim uses LSP/TreeSitter symbols
 - **Custom utilities**: clipboard-context.lua for LLM-friendly code copying
 
 ### Custom Plugin Ecosystem
@@ -121,6 +123,7 @@ Specialized plugins developed for this configuration:
 - Code quality: `conform.lua`, `lint.lua`, `cmp.lua`
 - Navigation: `fzf.lua`, `oil.lua`, `harpoon.lua`
 - Git integration: `gitsigns.lua`
+- Symbols and diff review: `aerial.lua`, `diffview.lua`
 - Custom utilities: `clipboard-context.lua`, `diagnostics.lua`
 
 ### Lock Files & State

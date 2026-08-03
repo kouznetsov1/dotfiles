@@ -47,7 +47,7 @@ require("lazy").setup({
 
 		{
 			"nvim-treesitter/nvim-treesitter",
-			branch = "master",
+			branch = "main",
 			lazy = false,
 			build = ":TSUpdate",
 			config = function()
@@ -136,6 +136,63 @@ require("lazy").setup({
 			event = "BufReadPre",
 			config = function()
 				require("dankovich.plugins.gitsigns")
+			end,
+		},
+
+		-- Git review and file history
+		{
+			"sindrets/diffview.nvim",
+			cmd = {
+				"DiffviewClose",
+				"DiffviewFileHistory",
+				"DiffviewFocusFiles",
+				"DiffviewOpen",
+				"DiffviewRefresh",
+				"DiffviewToggleFiles",
+			},
+			dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+			keys = {
+				{
+					"<leader>rr",
+					function()
+						require("dankovich.plugins.diffview").open_review()
+					end,
+					desc = "Review changes vs main",
+				},
+				{ "<leader>rd", "<cmd>DiffviewOpen<CR>", desc = "Open working tree diff" },
+				{ "<leader>rq", "<cmd>DiffviewClose<CR>", desc = "Close diffview" },
+				{ "<leader>rh", "<cmd>DiffviewFileHistory %<CR>", desc = "Current file history" },
+				{ "<leader>rH", "<cmd>DiffviewFileHistory<CR>", desc = "Repository file history" },
+			},
+			config = function()
+				require("dankovich.plugins.diffview").setup()
+			end,
+		},
+
+		-- Symbols outline
+		{
+			"stevearc/aerial.nvim",
+			cmd = {
+				"AerialClose",
+				"AerialGo",
+				"AerialInfo",
+				"AerialNavClose",
+				"AerialNavOpen",
+				"AerialNavToggle",
+				"AerialNext",
+				"AerialOpen",
+				"AerialOpenAll",
+				"AerialPrev",
+				"AerialToggle",
+			},
+			dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+			keys = {
+				{ "<leader>a", "<cmd>AerialToggle! left<CR>", desc = "Toggle symbols outline" },
+				{ "<leader>an", "<cmd>AerialNext<CR>", desc = "Next symbol" },
+				{ "<leader>ap", "<cmd>AerialPrev<CR>", desc = "Previous symbol" },
+			},
+			config = function()
+				require("dankovich.plugins.aerial")
 			end,
 		},
 

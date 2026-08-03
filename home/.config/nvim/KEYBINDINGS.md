@@ -87,6 +87,22 @@
 | n | `<leader>hD` | Diff this against ~ |
 | n | `<leader>td` | Toggle deleted |
 
+## Git Review (Diffview)
+| Mode | Keybinding | Description |
+|------|------------|-------------|
+| n | `<leader>rr` | Review changes vs main |
+| n | `<leader>rd` | Open working tree diff |
+| n | `<leader>rq` | Close diffview |
+| n | `<leader>rh` | Current file history |
+| n | `<leader>rH` | Repository file history |
+
+## Symbols (Aerial)
+| Mode | Keybinding | Description |
+|------|------------|-------------|
+| n | `<leader>a` | Toggle symbols outline |
+| n | `<leader>an` | Next symbol |
+| n | `<leader>ap` | Previous symbol |
+
 ## Completion (nvim-cmp)
 | Mode | Keybinding | Description |
 |------|------------|-------------|
@@ -118,7 +134,7 @@
 
 ## Keybinding Patterns
 - **File operations**: `<leader>f*` (fuzzy finding, file search)
-- **Git operations**: `<leader>h*` (hunks), `<leader>t*` (toggles)
+- **Git operations**: `<leader>h*` (hunks), `<leader>r*` (Diffview review/history), `<leader>t*` (toggles)
 - **LSP operations**: Standard vim keys (`gd`, `gr`, `K`) + `<leader>` commands
 - **Diagnostics**: `<leader>d*`
 - **Harpoon**: `<leader>1-6` for quick file access, `<C-h>` for menu

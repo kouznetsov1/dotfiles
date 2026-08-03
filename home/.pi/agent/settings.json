@@ -1,0 +1,17 @@
+{
+  "lastChangelogVersion": "0.83.0",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.6-sol",
+  "defaultThinkingLevel": "medium",
+  "compaction": {
+    "enabled": false
+  },
+  "packages": [
+    "npm:pi-subagents@0.40.0",
+    "npm:@plannotator/pi-extension@0.25.1"
+  ],
+  "theme": "dark",
+  "terminal": {
+    "showTerminalProgress": false
+  }
+}

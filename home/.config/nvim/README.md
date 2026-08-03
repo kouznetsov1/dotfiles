@@ -32,12 +32,13 @@ A modern, TypeScript/JavaScript-focused Neovim configuration built with Lua and 
 
 ### File Navigation & Search
 - **Fuzzy Finder**: fzf-lua with comprehensive file/text search (requires `fzf`, `ripgrep`, `fd`)
+- **Symbols Outline**: aerial.nvim for navigating file symbols from LSP/TreeSitter
 - **Context Awareness**: nvim-treesitter-context shows function/class context
 - **Git Integration**: All paths shown relative to git root
 
 ### Git Integration
 - **Gitsigns**: Gutter indicators with hunk navigation
-- **Diffview**: Enhanced diff viewing capabilities
+- **Diffview**: Review changes against main and browse file history
 - **Comprehensive Git Operations**: Stage/reset hunks, blame, diff navigation
 
 ### Custom Utilities
@@ -88,6 +89,18 @@ A modern, TypeScript/JavaScript-focused Neovim configuration built with Lua and 
 - `[c` - Previous git change
 - `]c` - Next git change
 
+#### Git Review (Diffview)
+- `<leader>rr` - Review changes vs main
+- `<leader>rd` - Open working tree diff
+- `<leader>rq` - Close diffview
+- `<leader>rh` - Current file history
+- `<leader>rH` - Repository file history
+
+#### Symbols (Aerial)
+- `<leader>a` - Toggle symbols outline
+- `<leader>an` - Next symbol
+- `<leader>ap` - Previous symbol
+
 #### Custom Clipboard Features
 - `<leader>yc` - Copy selection with file context (visual mode)
 - `<leader>yd` - Copy diagnostics with context
@@ -109,6 +122,7 @@ A modern, TypeScript/JavaScript-focused Neovim configuration built with Lua and 
 - `:UpdateRemotePlugins` - Update remote plugins (needed after installing tailwind-tools)
 - `:Mason` - LSP server manager
 - `:DiffviewOpen` - Open enhanced diff view
+- `:AerialToggle` - Toggle symbols outline
 
 ## Oil.nvim (File Explorer)
 
@@ -130,7 +144,7 @@ This config automatically handles monorepos (like your Viking turborepo):
 
 1. **Install LSP server**: Usually via your package manager or npm
 2. **Add LSP config**: Create a file in `lua/dankovich/plugins/[language]lsp.lua`
-3. **Add TreeSitter parser**: Add to `ensure_installed` in `treesitter.lua`
+3. **Add TreeSitter parser**: Add the parser and filetype to `treesitter.lua`
 4. **Add formatter**: Add to `conform.lua` if needed
 5. **Add linter**: Add to `lint.lua` if needed
 
@@ -168,10 +182,12 @@ This config automatically handles monorepos (like your Viking turborepo):
 │       ├── lazy.lua        # Plugin declarations
 │       └── plugins/        # Plugin configurations
 │           ├── autopairs.lua
+│           ├── aerial.lua
 │           ├── clipboard-context.lua  # Custom clipboard utilities
 │           ├── cmp.lua
 │           ├── conform.lua
 │           ├── context.lua
+│           ├── diffview.lua
 │           ├── diagnostics.lua
 │           ├── fzf.lua
 │           ├── gitsigns.lua
@@ -199,10 +215,10 @@ This config automatically handles monorepos (like your Viking turborepo):
 
 ## Currently Installed Plugins
 
-31 plugins total including:
+33 plugins total including:
 - **LSP Infrastructure**: mason, lspconfig, typescript-tools
 - **Completion System**: nvim-cmp + 5 sources
-- **File Navigation**: fzf-lua, oil, harpoon
+- **File Navigation**: fzf-lua, oil, harpoon, aerial
 - **Git Integration**: gitsigns, diffview
 - **Code Quality**: conform, nvim-lint
 - **UI Enhancements**: lualine, gruvbox, devicons

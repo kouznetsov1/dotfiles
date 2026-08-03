@@ -2,13 +2,76 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
 
+-- Projects with the native TS7 compiler get its built-in LSP — much faster
+-- than tsserver-based servers. Detected via the @typescript/native alias
+-- (ultra monorepo, where plain `typescript` is the v6 JS shim) or
+-- typescript >= 7 installed under its real name. Everything else keeps vtsls
+-- below. Note: the native LSP does not support tsserver plugins like
+-- @effect/language-service.
+local function find_native_tsc(path)
+  for dir in vim.fs.parents(path) do
+    local nm = dir .. "/node_modules"
+    local native = nm .. "/@typescript/native/bin/tsc"
+    if vim.fn.executable(native) == 1 then
+      return native
+    end
+    local tsc = nm .. "/typescript/bin/tsc"
+    if vim.fn.executable(tsc) == 1 then
+      local f = io.open(nm .. "/typescript/package.json")
+      if f then
+        local ok, pkg = pcall(vim.json.decode, f:read("*a"))
+        f:close()
+        local major = ok and type(pkg.version) == "string" and tonumber(pkg.version:match("^(%d+)"))
+        if major and major >= 7 then
+          return tsc
+        end
+      end
+    end
+  end
+end
+
+local lsp_configs = require("lspconfig.configs")
+
+if not lsp_configs.ts_native then
+  lsp_configs.ts_native = {
+    default_config = {
+      cmd = { "tsc", "--lsp", "--stdio" },
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      root_dir = require("lspconfig.util").root_pattern("tsconfig.json", "package.json"),
+    },
+  }
+end
+
+lspconfig.ts_native.setup({
+  capabilities = capabilities,
+  single_file_support = false,
+  root_dir = function(fname)
+    if find_native_tsc(fname) then
+      return require("lspconfig.util").root_pattern("tsconfig.json", "package.json")(fname)
+    end
+  end,
+  on_new_config = function(new_config, root_dir)
+    local bin = find_native_tsc(root_dir)
+    if bin then
+      new_config.cmd = { bin, "--lsp", "--stdio" }
+    end
+  end,
+})
+
 -- Using vtsls for TypeScript plugin support (Effect LSP)
 -- vtsls automatically detects and uses TypeScript plugins from tsconfig.json
 require("lspconfig.configs").vtsls = require("vtsls").lspconfig
 
 lspconfig.vtsls.setup({
   capabilities = capabilities,
+  -- Without this, vtsls attaches in single-file mode even when root_dir
+  -- returns nil (i.e. in native-TS7 projects).
+  single_file_support = false,
   root_dir = function(fname)
+    -- native-TS7 projects are handled by the ts_native server above
+    if find_native_tsc(fname) then
+      return nil
+    end
     return require("lspconfig.util").root_pattern("package.json", "tsconfig.json")(fname)
   end,
   settings = {

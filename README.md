@@ -22,7 +22,8 @@ home/
 │   ├── nvim/       # neovim
 │   ├── tmux/       # tmux
 │   └── ghostty/    # ghostty terminal
-├── .claude/        # claude code settings
+├── .claude/        # Claude Code settings
+├── .pi/            # Pi settings, instructions, keybindings, and extensions
 └── .zshrc          # zsh
 ```
 
@@ -32,7 +33,7 @@ Uses [GNU Stow](https://www.gnu.org/software/stow/) for symlinks.
 
 ```bash
 # Update after editing
-stow -v --target="$HOME" home
+stow --no-folding -v --target="$HOME" home
 ```
 
 ## What's included
@@ -43,4 +44,5 @@ stow -v --target="$HOME" home
 | nvim | lazy.nvim, lsp, treesitter, oil, harpoon, fzf |
 | tmux | vim navigation, TPM |
 | ghostty | catppuccin macchiato, monolisa |
-| claude | settings, skills, auto-format hooks |
+| Claude Code | settings, skills, auto-format hooks |
+| Pi | model/package settings, global instructions, keybindings, production access gate |

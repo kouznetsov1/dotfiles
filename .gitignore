@@ -8,3 +8,13 @@ __pycache__/
 
 # Nvim
 lazy-lock.json
+.nvimlog
+nvim.log
+
+# Pi machine-local state
+home/.pi/agent/auth.json
+home/.pi/agent/models-store.json
+home/.pi/agent/npm/
+home/.pi/agent/run-history.jsonl
+home/.pi/agent/sessions/
+home/.pi/agent/trust.json
