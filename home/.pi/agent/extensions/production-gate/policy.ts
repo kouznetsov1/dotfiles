@@ -27,7 +27,7 @@ const PRODUCTION_COMMAND_PATTERNS: Array<{ pattern: RegExp; reason: string }> = 
 		reason: "Command can decrypt or manage environment keys",
 	},
 	{
-		pattern: /\b(?:db|import|refresh|deploy|upload)[\w:-]*:prod\b/i,
+		pattern: /\b[\w:-]+:prod\b/i,
 		reason: "Command invokes a production script",
 	},
 	{

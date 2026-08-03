@@ -33,7 +33,8 @@ describe("production command policy", () => {
 		expect(classifyProductionCommand("echo $DOTENV_PRIVATE_KEY_PRODUCTION", dailyWorktree)).toBeDefined();
 	});
 
-	test("gates production scripts", () => {
+	test("gates any production script", () => {
+		expect(classifyProductionCommand("bun run build:prod", dailyWorktree)).toBeDefined();
 		expect(classifyProductionCommand("bun run db:studio:prod", dailyWorktree)).toBeDefined();
 		expect(classifyProductionCommand("bun run import:ultra:prod", dailyWorktree)).toBeDefined();
 	});

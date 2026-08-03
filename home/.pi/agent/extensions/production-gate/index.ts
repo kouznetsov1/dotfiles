@@ -26,15 +26,6 @@ async function requestApproval(
 }
 
 export default function productionGate(pi: ExtensionAPI) {
-	pi.on("session_start", (_event, ctx) => {
-		const mode = isStrictProductionWorktree(ctx.cwd) ? "strict" : "targeted";
-		ctx.ui.setStatus("production-gate", `production gate: ${mode}`);
-	});
-
-	pi.on("session_shutdown", (_event, ctx) => {
-		ctx.ui.setStatus("production-gate", undefined);
-	});
-
 	pi.on("tool_call", async (event, ctx) => {
 		let risk: ProductionRisk | undefined;
 		let detail: string | undefined;
