@@ -1,0 +1,11 @@
+{
+  "imports": ["codex"],
+  "mcpServers": {
+    "computer-use": {
+      "disabled": true
+    },
+    "node_repl": {
+      "disabled": true
+    }
+  }
+}

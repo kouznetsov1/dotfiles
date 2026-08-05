@@ -18,6 +18,7 @@ trap cleanup EXIT
 
 if ! printf "%s\n" "$diff" | codex exec \
   --model gpt-5.3-codex-spark \
+  --config 'model_reasoning_effort="medium"' \
   --sandbox read-only \
   --ephemeral \
   --output-last-message "$msg_file" \
