@@ -44,10 +44,28 @@ for file in settings.json keybindings.json AGENTS.md claude-bridge.json mcp.json
     fi
 done
 
+# Preserve existing Herdr config before replacing it with stowed config
+HERDR_CONFIG="$HOME/.config/herdr/config.toml"
+if [ -f "$HERDR_CONFIG" ] && [ ! -L "$HERDR_CONFIG" ]; then
+    HERDR_BACKUP="$HERDR_CONFIG.local"
+    if [ -e "$HERDR_BACKUP" ]; then
+        echo "Cannot preserve $HERDR_CONFIG: $HERDR_BACKUP already exists" >&2
+        exit 1
+    fi
+    echo "Moving existing $HERDR_CONFIG to $HERDR_BACKUP..."
+    mv "$HERDR_CONFIG" "$HERDR_BACKUP"
+fi
+
 # Stow home directory
 cd "$DOTFILES_DIR"
 echo "Stowing dotfiles..."
 stow --no-folding -v --target="$HOME" home
+
+# Herdr
+if ! command -v herdr &> /dev/null; then
+    echo "Installing Herdr..."
+    curl -fsSL https://herdr.dev/install.sh | sh
+fi
 
 # zsh-autosuggestions
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"

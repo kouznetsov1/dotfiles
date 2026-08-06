@@ -1,0 +1,24 @@
+[keys]
+prefix = "ctrl+a"
+
+# Same muscle memory as the old sesh picker.
+goto = "prefix+s"
+settings = "prefix+comma"
+
+# Spaces.
+previous_workspace = "prefix+u"
+next_workspace = "prefix+i"
+switch_workspace = "prefix+shift+1..9"
+
+# Tabs.
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+
+# Agents.
+previous_agent = "prefix+shift+k"
+next_agent = "prefix+shift+j"
+
+# Free Shift+J/K for agent navigation.
+swap_pane_down = ""
+swap_pane_up = ""

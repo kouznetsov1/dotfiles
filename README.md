@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal config for zsh, nvim, tmux, ghostty, and claude code.
+Personal config for zsh, nvim, Herdr, tmux, ghostty, Claude Code, and Pi.
 
 ## Install
 
@@ -20,7 +20,8 @@ cd ~/dotfiles
 home/
 ├── .config/
 │   ├── nvim/       # neovim
-│   ├── tmux/       # tmux
+│   ├── herdr/      # Herdr workspace manager
+│   ├── tmux/       # legacy tmux config
 │   └── ghostty/    # ghostty terminal
 ├── .claude/        # Claude Code settings
 ├── .pi/            # Pi settings, instructions, keybindings, and extensions
@@ -42,7 +43,8 @@ stow --no-folding -v --target="$HOME" home
 |--------|----------|
 | zsh | oh-my-zsh, fzf, `fzg` (rg+fzf search) |
 | nvim | lazy.nvim, lsp, treesitter, oil, harpoon, fzf |
-| tmux | vim navigation, TPM |
+| Herdr | tmux-style prefix, workspace/tab/agent navigation |
+| tmux | legacy vim navigation, TPM |
 | ghostty | catppuccin macchiato, monolisa |
 | Claude Code | settings, skills, auto-format hooks |
 | Pi | model/package settings, global instructions, keybindings, production access gate |
