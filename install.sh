@@ -67,6 +67,43 @@ if ! command -v herdr &> /dev/null; then
     curl -fsSL https://herdr.dev/install.sh | sh
 fi
 
+# Claude Code
+if ! command -v claude &> /dev/null; then
+    echo "Installing Claude Code..."
+    curl -fsSL https://claude.ai/install.sh | bash
+    hash -r
+fi
+
+if ! command -v claude &> /dev/null && [ ! -x "$HOME/.local/bin/claude" ]; then
+    echo "Claude Code was installed but its executable was not found. Add ~/.local/bin to PATH and rerun install.sh." >&2
+    exit 1
+fi
+
+# Pi coding agent and packages declared in ~/.pi/agent/settings.json
+if ! command -v pi &> /dev/null; then
+    echo "Installing Pi coding agent..."
+    curl -fsSL https://pi.dev/install.sh | sh
+    hash -r
+fi
+
+PI_BIN="$(command -v pi || true)"
+if [ -z "$PI_BIN" ]; then
+    for candidate in "$HOME/.local/bin/pi" "$HOME/.bun/bin/pi"; do
+        if [ -x "$candidate" ]; then
+            PI_BIN="$candidate"
+            break
+        fi
+    done
+fi
+
+if [ -z "$PI_BIN" ]; then
+    echo "Pi was installed but its executable was not found. Add it to PATH and rerun install.sh." >&2
+    exit 1
+fi
+
+echo "Installing Pi packages..."
+"$PI_BIN" update --extensions
+
 # zsh-autosuggestions
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 if [ -d "$HOME/.oh-my-zsh" ] && [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
