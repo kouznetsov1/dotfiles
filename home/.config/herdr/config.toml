@@ -1,3 +1,6 @@
+[terminal]
+default_shell = "/usr/bin/zsh"
+
 [keys]
 prefix = "ctrl+a"
 
