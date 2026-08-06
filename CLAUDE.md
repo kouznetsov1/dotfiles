@@ -27,9 +27,10 @@ dotfiles/
 This will:
 1. Install stow if missing
 2. Symlink everything in `home/` to `~/`
-3. Install zsh-autosuggestions, TPM
-4. Install nvim plugins
-5. Prompt to install deps (fzf, bat, rg, tree)
+3. Install Claude Code, Pi, and the packages declared in Pi's settings
+4. Install zsh-autosuggestions, TPM
+5. Install nvim plugins
+6. Prompt to install deps (fzf, bat, rg, tree)
 
 ## Manual steps
 

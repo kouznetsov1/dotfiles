@@ -11,6 +11,22 @@ lazy-lock.json
 .nvimlog
 nvim.log
 
+# Claude Code machine-local state
+home/.claude/.credentials.json
+home/.claude/.last-cleanup
+home/.claude/backups/
+home/.claude/cache/
+home/.claude/daemon.log
+home/.claude/daemon/
+home/.claude/file-history/
+home/.claude/history.jsonl
+home/.claude/jobs/
+home/.claude/mcp-needs-auth-cache.json
+home/.claude/paste-cache/
+home/.claude/plans/
+home/.claude/projects/
+home/.claude/tasks/
+
 # Pi machine-local state
 home/.pi/agent/auth.json
 home/.pi/agent/models-store.json

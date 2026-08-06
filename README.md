@@ -46,3 +46,7 @@ stow --no-folding -v --target="$HOME" home
 | ghostty | catppuccin macchiato, monolisa |
 | Claude Code | settings, skills, auto-format hooks |
 | Pi | model/package settings, global instructions, keybindings, production access gate |
+
+The installer installs Claude Code and Pi when needed, stows their portable configuration, and
+reconciles the packages declared in `~/.pi/agent/settings.json`. Authentication, sessions, caches,
+and installed package contents remain machine-local.
