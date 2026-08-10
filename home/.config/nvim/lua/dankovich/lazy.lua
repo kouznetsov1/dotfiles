@@ -72,7 +72,15 @@ require("lazy").setup({
 				require("dankovich.plugins.context")
 			end,
 		},
-		{ "neovim/nvim-lspconfig", branch = "master", lazy = false },
+		{
+			"neovim/nvim-lspconfig",
+			branch = "master",
+			lazy = false,
+			dependencies = { "hrsh7th/cmp-nvim-lsp" },
+			config = function()
+				require("dankovich.plugins.typescript")
+			end,
+		},
 
 		-- Mason for LSP server management
 		{
@@ -110,15 +118,6 @@ require("lazy").setup({
 			"b0o/SchemaStore.nvim",
 			lazy = true,
 			version = false,
-		},
-
-		-- Using vtsls instead of typescript-tools for TypeScript plugin support
-		{
-			"yioneko/nvim-vtsls",
-			dependencies = { "neovim/nvim-lspconfig" },
-			config = function()
-				require("dankovich.plugins.typescript")
-			end,
 		},
 
 		-- Rust (config loaded on rust filetype)
