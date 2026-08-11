@@ -2,12 +2,9 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
 
--- Projects with the native TS7 compiler get its built-in LSP — much faster
--- than tsserver-based servers. Detected via the @typescript/native alias
--- (ultra monorepo, where plain `typescript` is the v6 JS shim) or
--- typescript >= 7 installed under its real name. Everything else keeps vtsls
--- below. Note: the native LSP does not support tsserver plugins like
--- @effect/language-service.
+-- Use only the native TS7 LSP. Detect it via the @typescript/native alias
+-- (Ultra keeps the JavaScript compiler under `typescript`) or TypeScript 7+
+-- installed under its real name.
 local function find_native_tsc(path)
   for dir in vim.fs.parents(path) do
     local nm = dir .. "/node_modules"
@@ -56,61 +53,6 @@ lspconfig.ts_native.setup({
       new_config.cmd = { bin, "--lsp", "--stdio" }
     end
   end,
-})
-
--- Using vtsls for TypeScript plugin support (Effect LSP)
--- vtsls automatically detects and uses TypeScript plugins from tsconfig.json
-require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-
-lspconfig.vtsls.setup({
-  capabilities = capabilities,
-  -- Without this, vtsls attaches in single-file mode even when root_dir
-  -- returns nil (i.e. in native-TS7 projects).
-  single_file_support = false,
-  root_dir = function(fname)
-    -- native-TS7 projects are handled by the ts_native server above
-    if find_native_tsc(fname) then
-      return nil
-    end
-    return require("lspconfig.util").root_pattern("package.json", "tsconfig.json")(fname)
-  end,
-  settings = {
-    vtsls = {
-      -- Enable TypeScript plugins from tsconfig.json
-      enableMoveToFileCodeAction = true,
-      autoUseWorkspaceTsdk = true,
-      experimental = {
-        maxInlayHintLength = 30,
-        completion = {
-          enableServerSideFuzzyMatch = true
-        }
-      }
-    },
-    typescript = {
-      tsserver = {
-        maxTsServerMemory = 4096,
-        pluginPaths = { "./node_modules" },
-        watchOptions = {
-          excludeDirectories = { "**/vendor/**", "**/node_modules/**", "**/.turbo/**" }
-        }
-      },
-      preferences = {
-        importModuleSpecifier = "relative"
-      },
-      inlayHints = {
-        parameterNames = { enabled = "all" },
-        parameterTypes = { enabled = true },
-        variableTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
-        enumMemberValues = { enabled = true }
-      },
-      updateImportsOnFileMove = { enabled = "always" },
-      suggest = {
-        completeFunctionCalls = true
-      }
-    }
-  }
 })
 
 -- LSP keybindings (only active when LSP is attached)
