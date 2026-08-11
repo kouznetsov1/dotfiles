@@ -30,7 +30,7 @@ EOF
 fi
 
 # Preserve existing portable Pi config before replacing it with stowed config
-for file in settings.json keybindings.json AGENTS.md claude-bridge.json mcp.json; do
+for file in settings.json keybindings.json AGENTS.md mcp.json; do
     target="$HOME/.pi/agent/$file"
     backup="$target.local"
     if [ -f "$target" ] && [ ! -L "$target" ]; then
