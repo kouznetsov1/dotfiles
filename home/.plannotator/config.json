@@ -1,0 +1,22 @@
+{
+  "diffOptions": {
+    "overflow": "wrap"
+  },
+  "prompts": {
+    "review": {
+      "runtimes": {
+        "pi": {
+          "denied": "\n\nTreat these findings as review input, not established facts. Inspect each finding against the actual code before acting. Do not independently review unrelated parts of the diff.\n\nRespond proportionally:\n- For a simple, unambiguous request, briefly confirm it and make the change immediately.\n- For a substantive request you agree with, give a concise recommendation and say exactly what you propose to change. Do not add analysis merely to fill a format.\n- For ambiguous, risky, architectural, or disputed findings, discuss them before editing. For each such finding, explain the relevant current behavior, trace the affected types, callers, call stack, or data flow, and give a clear verdict and recommendation. Include concise pseudocode, type signatures, or code examples when they clarify the proposal. State tradeoffs, assumptions, and unresolved questions.\n\nGroup findings only when they share the same root cause. Clearly distinguish verified code facts from assumptions. Always make the proposed next action explicit. Do not edit substantive or unresolved items until the user agrees with the direction."
+        }
+      }
+    },
+    "annotate": {
+      "runtimes": {
+        "pi": {
+          "fileFeedback": "# File Annotations\n\n{{fileHeader}}: {{filePath}}\n\n{{feedback}}\n\nInspect the annotations against the actual artifact and relevant code, then respond proportionally:\n- For a simple, unambiguous request, briefly confirm it and make the change immediately.\n- For a substantive request you agree with, give a concise recommendation and say exactly what you propose to change. Do not add analysis merely to fill a format.\n- For ambiguous, risky, architectural, or disputed annotations, discuss them before editing. For each such annotation, explain the relevant current behavior, trace affected types, callers, call stack, or data flow, and give a clear recommendation. Include concise pseudocode, type signatures, concrete wording, or code examples when useful. State tradeoffs, assumptions, and unresolved questions.\n\nGroup annotations only when they share the same root cause. Clearly distinguish verified facts from assumptions. Always make the proposed next action explicit. Do not edit substantive or unresolved items until the user agrees with the direction. Do not review unrelated parts of the artifact.",
+          "messageFeedback": "# Message Annotations\n\n{{feedback}}\n\nInspect the annotations in the context of the earlier response and relevant code, then respond proportionally:\n- For a simple, unambiguous request, briefly confirm it and carry it out immediately.\n- For a substantive request you agree with, give a concise recommendation and say exactly what you propose to do. Do not add analysis merely to fill a format.\n- For ambiguous, risky, architectural, or disputed annotations, discuss them before acting. For each such annotation, explain the relevant current behavior, trace affected types, callers, call stack, or data flow, and give a clear recommendation. Include concise pseudocode, type signatures, or code examples when useful. State tradeoffs, assumptions, and unresolved questions.\n\nGroup annotations only when they share the same root cause. Clearly distinguish verified facts from assumptions. Always make the proposed next action explicit. Do not act on substantive or unresolved items until the user agrees with the direction. Do not expand into unrelated review."
+        }
+      }
+    }
+  }
+}
