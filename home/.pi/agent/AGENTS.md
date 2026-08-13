@@ -4,3 +4,7 @@
 
 - Use fd instead of find.
 - Use rg (ripgrep) instead of grep.
+
+## Subagents
+
+Use subagents autonomously only for read-only scouting, research, or independent review. Delegate implementation only when explicitly asked.

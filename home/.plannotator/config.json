@@ -1,6 +1,7 @@
 {
   "diffOptions": {
-    "overflow": "wrap"
+    "overflow": "wrap",
+    "lineBgIntensity": "subtle"
   },
   "prompts": {
     "review": {
@@ -18,5 +19,15 @@
         }
       }
     }
+  },
+  "reviewAnalysis": {
+    "semanticDiff": true,
+    "callFlow": true
+  },
+  "conventionalComments": false,
+  "theme": {
+    "mode": "dark",
+    "light": "plannotator",
+    "dark": "cursor-hc"
   }
 }
