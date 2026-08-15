@@ -11,6 +11,10 @@
       "url": "https://api.mobbin.com/mcp",
       "auth": "oauth"
     },
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+      "auth": "oauth"
+    },
     "posthog": {
       "url": "https://mcp.posthog.com/mcp",
       "auth": "oauth"
