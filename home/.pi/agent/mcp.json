@@ -10,6 +10,10 @@
     "mobbin": {
       "url": "https://api.mobbin.com/mcp",
       "auth": "oauth"
+    },
+    "posthog": {
+      "url": "https://mcp.posthog.com/mcp",
+      "auth": "oauth"
     }
   }
 }
